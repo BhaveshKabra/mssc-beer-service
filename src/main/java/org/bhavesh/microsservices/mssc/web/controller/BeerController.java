@@ -3,8 +3,10 @@ package org.bhavesh.microsservices.mssc.web.controller;
 import org.bhavesh.microsservices.mssc.web.model.BeerDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.UUID;
 
 @RestController
@@ -18,13 +20,13 @@ public class BeerController {
     }
 
     @PostMapping
-    public ResponseEntity<BeerDTO> saveNewBeer(@RequestBody BeerDTO beerDTO)
+    public ResponseEntity<BeerDTO> saveNewBeer(@RequestBody @Validated BeerDTO beerDTO)
     {
         //beerDTO.
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
     @PatchMapping({"/{beerId}"})
-    public ResponseEntity<BeerDTO> updateBeer(@PathVariable UUID beerId,@RequestBody BeerDTO beer)
+    public ResponseEntity<BeerDTO> updateBeer(@PathVariable UUID beerId,@RequestBody @Validated BeerDTO beer)
     {
         //beerDTO.
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
