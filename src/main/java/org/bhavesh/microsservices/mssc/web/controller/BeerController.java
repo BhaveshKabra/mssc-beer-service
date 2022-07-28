@@ -1,5 +1,8 @@
 package org.bhavesh.microsservices.mssc.web.controller;
 
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.bhavesh.microsservices.mssc.service.BeerService;
 import org.bhavesh.microsservices.mssc.web.model.BeerDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,30 +14,37 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/beer/")
+@RequiredArgsConstructor
 public class BeerController {
+
+    public final BeerService beerService;
 
     @GetMapping({"/{beerId}"})
     public ResponseEntity<BeerDTO> getBeerById(@PathVariable UUID beerId)
     {
-        return new ResponseEntity<>(BeerDTO.builder().build(), HttpStatus.OK);
+        BeerDTO beerDTO=beerService.getById(beerId);
+        if(beerDTO!=null)
+            return new ResponseEntity<> (beerDTO, HttpStatus.FOUND);
+        else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND) ;
+        }
     }
 
     @PostMapping
     public ResponseEntity<BeerDTO> saveNewBeer(@RequestBody @Validated BeerDTO beerDTO)
     {
-        //beerDTO.
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(beerService.save(beerDTO),HttpStatus.CREATED);
     }
     @PatchMapping({"/{beerId}"})
     public ResponseEntity<BeerDTO> updateBeer(@PathVariable UUID beerId,@RequestBody @Validated BeerDTO beer)
     {
-        //beerDTO.
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity <> (beerService.update(beerId,beer),HttpStatus.NO_CONTENT);
     }
     @DeleteMapping
     public ResponseEntity<BeerDTO> removeBeer(@RequestBody UUID beerId)
     {
         //beerDTO.
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        beerService.delete(beerId);
+        return new ResponseEntity <> (HttpStatus.NO_CONTENT);
     }
 }
