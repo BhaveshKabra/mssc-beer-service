@@ -1,5 +1,6 @@
 package org.bhavesh.microsservices.mssc.service;
 
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.bhavesh.microsservices.mssc.domain.Beer;
 import org.bhavesh.microsservices.mssc.mapper.BeerMapper;
@@ -14,7 +15,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class BeerServiceImpl implements BeerService {
 
     private final BeerRepository beerRepository;

@@ -16,10 +16,12 @@ public class Bootstrapper implements CommandLineRunner {
     {
         this.beerRepository=beerRepository;
     }
-
+    public static final String BEER_1_UPC="0631234200036";
+    public static final String BEER_2_UPC="0631234200019";
+    public static final String BEER_3_UPC="0083783375213";
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         loadBeerObjects();
     }
 
@@ -32,7 +34,7 @@ public class Bootstrapper implements CommandLineRunner {
                     .beerStyle("IPA")
                     .quantityToBrew(200)
                     .minOnHand(12)
-                    .upc(377010000000L)
+                    .upc(BEER_1_UPC)
                     .build());
             beerRepository.save(Beer.builder()
                     .beerName("Galaxy Cat")
@@ -40,7 +42,16 @@ public class Bootstrapper implements CommandLineRunner {
                     .beerStyle("PALE ALE")
                     .quantityToBrew(200)
                     .minOnHand(12)
-                    .upc(377010000002L)
+                    .upc(BEER_2_UPC)
+                    .build());
+
+            beerRepository.save(Beer.builder()
+                    .beerName("No Hammers on the Bar")
+                    .price(new BigDecimal("11.95"))
+                    .beerStyle("PALE ALE")
+                    .quantityToBrew(200)
+                    .minOnHand(12)
+                    .upc(BEER_3_UPC)
                     .build());
         }
         System.out.println("LoadedBeers:"+beerRepository.count());

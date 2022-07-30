@@ -1,30 +1,29 @@
 package org.bhavesh.microsservices.mssc.web.controller;
 
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.bhavesh.microsservices.mssc.service.BeerService;
+import org.bhavesh.microsservices.mssc.service.BeerServiceImpl;
 import org.bhavesh.microsservices.mssc.web.model.BeerDTO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/beer/")
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class BeerController {
 
     public final BeerService beerService;
-
     @GetMapping({"/{beerId}"})
     public ResponseEntity<BeerDTO> getBeerById(@PathVariable UUID beerId)
     {
         BeerDTO beerDTO=beerService.getById(beerId);
         if(beerDTO!=null)
-            return new ResponseEntity<> (beerDTO, HttpStatus.FOUND);
+            return new ResponseEntity<> (beerDTO, HttpStatus.OK);
         else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND) ;
         }
