@@ -22,7 +22,7 @@ public class BeerController {
     public ResponseEntity<BeerDTO> getBeerById(@PathVariable UUID beerId)
     {
         BeerDTO beerDTO=beerService.getById(beerId);
-        if(beerDTO!=null)
+        if(beerDTO.getBeerName()!=null)
             return new ResponseEntity<> (beerDTO, HttpStatus.OK);
         else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND) ;

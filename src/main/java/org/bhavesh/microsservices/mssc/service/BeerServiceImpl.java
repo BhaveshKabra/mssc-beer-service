@@ -23,11 +23,7 @@ public class BeerServiceImpl implements BeerService {
     @Override
     public BeerDTO getById(UUID beerId) {
         Optional<Beer> optBeer=beerRepository.findById(beerId);
-        if(optBeer.isPresent())
-        return beerMapper.beertoBeerDTO(optBeer.get());
-        else {
-            return null;
-        }
+        return beerMapper.beertoBeerDTO(optBeer.orElse(Beer.builder().build()));
     }
     @Override
     public BeerDTO save(BeerDTO beerDTO) {
